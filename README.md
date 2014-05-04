@@ -3,6 +3,8 @@ roosevelt-closure
 
 [Google Closure compiler](https://developers.google.com/closure/compiler) support for [Roosevelt MVC web framework](https://github.com/kethinov/roosevelt).
 
+Note: it's recommended to install the [Java JRE](http://www.oracle.com/technetwork/java/javase/downloads/index.html) as well. If you don't, then Roosevelt will install it as a dependency of your app which will bloat the site of your app by several tens of megabytes.
+
 Usage
 =====
 
