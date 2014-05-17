@@ -1,4 +1,4 @@
-roosevelt-closure
+roosevelt-closure [![NPM version](https://badge.fury.io/js/roosevelt-closure.png)](http://badge.fury.io/js/roosevelt-closure) [![Dependency Status](https://gemnasium.com/kethinov/roosevelt-closure.png)](https://gemnasium.com/kethinov/roosevelt-closure) [![Gittip](http://img.shields.io/gittip/kethinov.png)](https://www.gittip.com/kethinov/)
 =================
 
 [Google Closure compiler](https://developers.google.com/closure/compiler) support for [Roosevelt MVC web framework](https://github.com/kethinov/roosevelt).
