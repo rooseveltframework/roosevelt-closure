@@ -8,7 +8,7 @@ module.exports = {
     var newFile = app.get('jsCompiledOutput') + fileName, newJs;
 
     // disable minify if noMinify param is present in roosevelt
-    if (!app.get('params').noMinify) {
+    if (app.get('params').noMinify) {
       fs.createReadStream(app.get('jsPath') + fileName).pipe(fs.createWriteStream(newFile));
       newJs = fs.readFileSync(app.get('jsPath') + fileName, 'utf-8');
       callback(null, newFile, newJs);
