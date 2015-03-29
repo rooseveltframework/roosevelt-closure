@@ -2,7 +2,7 @@
   "name": "roosevelt-closure",
   "description": "Google Closure compiler support for Roosevelt MVC web framework",
   "author": "Eric Newport <kethinov@gmail.com>",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/kethinov/roosevelt-closure",
   "license": "Creative Commons Attribution 4.0 International License",
   "main": "roosevelt-closure.js",
