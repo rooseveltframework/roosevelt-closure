@@ -4,8 +4,8 @@ var closureCompiler = require('closurecompiler'),
     fs = require('fs');
 
 module.exports = {
-  parse: function(app, fileName, callback) {
-    var newFile = app.get('jsCompiledOutput') + fileName, newJs;
+  parse: function(app, fileName, newFile, callback) {
+    var newJs;
 
     // disable minify if noMinify param is present in roosevelt
     if (app.get('params').noMinify) {
