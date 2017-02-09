@@ -4,7 +4,7 @@
 
 # Usage
 
-Declare the `roosevelt-closure` module as a dependency in package.json of your roosevelt app.
+Declare the `roosevelt-closure` module as a dependency in the package.json of your roosevelt app.
 
 Declare your JS compiler by passing it as a param to Roosevelt:
 
