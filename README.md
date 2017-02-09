@@ -6,7 +6,7 @@
 
 Declare the `roosevelt-closure` module as a dependency in the package.json of your roosevelt app.
 
-Declare your JS compiler by passing it as a param to Roosevelt:
+Then declare your JS compiler by passing it as a param to Roosevelt:
 
 ```js
 "rooseveltConfig": {
