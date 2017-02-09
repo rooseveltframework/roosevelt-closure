@@ -4,7 +4,7 @@ var closureCompiler = require('google-closure-compiler-js').compile,
 module.exports = {
   parse: function(app, fileName, filePath, callback) {
     var newJs,
-        params;
+        params = {};
 
     // disable minify if noMinify param is present in roosevelt
     if (app.get('params').noMinify) {
@@ -15,45 +15,19 @@ module.exports = {
 
     // do the compression
     else {
-      console.log('params...');
-      console.log(app.get('params').jsCompiler.params);
+      if (!app.get('params').jsCompiler.params) {
+        params.compilationLevel = 'ADVANCED';
+      }
+      else {
+        params = app.get('params').jsCompiler.params;
+      }
 
-      app.get('params').jsCompiler.params = {
-        compilationLevel: 'ADVANCED',
-        warningLevel: 'VERBOSE'
-      };
-      console.log(app.get('params').jsCompiler.params);
+      params.jsCode = [{src: fs.readFileSync(app.get('jsPath') + fileName, 'utf-8')}];
 
-      const flags = {
-        languageIn: 'ECMASCRIPT6',
-        languageOut: 'ECMASCRIPT5',
-        compilationLevel: 'ADVANCED',
-        warningLevel: 'VERBOSE',
-        jsCode: [{src: 'var color = \'#eee\'; document.body.style.backgroundColor = color;'}],
-      };
-      const out = closureCompiler(flags);
+      const out = closureCompiler(params);
+      newJs = out.compiledCode;
 
-      console.info(out.compiledCode);
-
-      params = app.get('params').jsCompiler.params || {
-        compilationLevel: 'ADVANCED'
-      };
-
-      console.log('src: ', fs.readFileSync(app.get('jsPath') + fileName, 'utf8'));
-
-      params.jsCode = [{src: 'const x = 1 + 2;'}];
-
-      console.log(closureCompiler);
-      console.log(params);
-      console.log(closureCompiler(params));
-
-      /*closureCompiler.compile([app.get('jsPath') + fileName], app.get('params').jsCompiler.params || {
-          compilation_level: 'ADVANCED'
-        },
-        function(err, newJs) {
-          callback(err, newJs);
-        }
-      );*/
+      callback(out.errors[0], newJs);
     }
   }
 };
