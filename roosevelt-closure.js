@@ -1,11 +1,10 @@
-'use strict';
-
-var closureCompiler = require('closurecompiler'),
+var closureCompiler = require('google-closure-compiler-js').compile,
     fs = require('fs');
 
 module.exports = {
   parse: function(app, fileName, filePath, callback) {
-    var newJs;
+    var newJs,
+        params = {};
 
     // disable minify if noMinify param is present in roosevelt
     if (app.get('params').noMinify) {
@@ -16,13 +15,19 @@ module.exports = {
 
     // do the compression
     else {
-      closureCompiler.compile([app.get('jsPath') + fileName], app.get('params').jsCompiler.params || {
-          compilation_level: 'ADVANCED_OPTIMIZATIONS'
-        },
-        function(err, newJs) {
-          callback(err, newJs);
-        }
-      );
+      if (!app.get('params').jsCompiler.params) {
+        params.compilationLevel = 'ADVANCED';
+      }
+      else {
+        params = app.get('params').jsCompiler.params;
+      }
+
+      params.jsCode = [{src: fs.readFileSync(app.get('jsPath') + fileName, 'utf-8')}];
+
+      const out = closureCompiler(params);
+      newJs = out.compiledCode;
+
+      callback(out.errors[0], newJs);
     }
   }
 };
