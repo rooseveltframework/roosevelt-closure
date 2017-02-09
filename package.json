@@ -12,7 +12,7 @@
   },
   "engineStrict": true,
   "dependencies": {
-    "google-closure-compiler-js": "20161024.0.0"
+    "google-closure-compiler-js": "20170124.0.0"
   },
   "devDependencies ": {
     "eslint": "3.13.1"
