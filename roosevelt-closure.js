@@ -21,7 +21,7 @@ module.exports = {
 
       // warn for using deprecated compilation_level param and reset params to default
       else if (app.get('params').jsCompiler.params.compilation_level) {
-        console.warn('⚠️  ' + 'Old param "compilation_level" was passed to roosevelt-closure. As of 0.3.x, breaking API changes were made to roosevelt-closure. You will need to update your roosevelt app\'s config to use the new params syntax. See https://github.com/kethinov/roosevelt#statics-parameters for details'.red)
+        console.warn('⚠️  Old param "compilation_level" was passed to roosevelt-closure. As of 0.3.x, breaking API changes were made to roosevelt-closure. You will need to update your roosevelt app\'s config to use the new params syntax. See https://github.com/kethinov/roosevelt#statics-parameters for details'.red)
         params.compilationLevel = 'ADVANCED';
       }
       else {
