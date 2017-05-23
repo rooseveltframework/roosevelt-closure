@@ -1,6 +1,8 @@
-# roosevelt-closure [![NPM version](https://badge.fury.io/js/roosevelt-closure.png)](http://badge.fury.io/js/roosevelt-closure) [![Dependency Status](https://gemnasium.com/kethinov/roosevelt-closure.png)](https://gemnasium.com/kethinov/roosevelt-closure) [![Gittip](http://img.shields.io/gittip/kethinov.png)](https://www.gittip.com/kethinov/)
+roosevelt-closure
+===
+[![npm](https://img.shields.io/npm/v/roosevelt-closure.svg)](https://www.npmjs.com/package/roosevelt-closure)
 
-[Google Closure compiler](https://developers.google.com/closure/compiler) support for [Roosevelt MVC web framework](https://github.com/kethinov/roosevelt).
+[Google Closure compiler](https://developers.google.com/closure/compiler) support for [Roosevelt MVC web framework](https://github.com/rooseveltframework/roosevelt).
 
 # Usage
 
