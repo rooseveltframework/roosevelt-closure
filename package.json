@@ -15,7 +15,9 @@
     "google-closure-compiler-js": "20170521.0.0"
   },
   "devDependencies": {
-    "eslint": "4.0.0"
+    "eslint": "4.0.0",
+    "lint-staged": "^4.0.0",
+    "husky": "^0.13.4"
   },
   "eslintConfig": {
     "env": {
@@ -116,6 +118,10 @@
   "_from": "roosevelt-closure@*",
   "gitHead": "",
   "scripts": {
-    "test": "./node_modules/.bin/eslint roosevelt-closure.js"
+    "test": "./node_modules/.bin/eslint roosevelt-closure.js",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": "./node_modules/.bin/eslint"
   }
 }
