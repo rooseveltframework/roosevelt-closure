@@ -12,7 +12,7 @@
   },
   "engineStrict": true,
   "dependencies": {
-    "google-closure-compiler-js": "20170521.0.0"
+    "google-closure-compiler-js": "20170910.0.1"
   },
   "devDependencies": {
     "standard": "^10.0.0",
