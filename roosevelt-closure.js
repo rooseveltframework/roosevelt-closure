@@ -4,7 +4,7 @@ const path = require('path')
 
 module.exports = {
   parse: function (app, fileName) {
-    let params = app.get('params').jsCompiler.params || {}
+    let params = app.get('params').js.compiler.params || {}
     let externs
     let compilerOut
     let newJs
@@ -17,7 +17,7 @@ module.exports = {
         params.externs = [{src: fs.readFileSync(path.join(app.get('appDir'), params.externs), 'utf-8')}]
       } else {
         externs = []
-        params.externs.forEach(function (extern) {
+        params.externs.forEach((extern) => {
           externs.push(
             {
               src: fs.readFileSync(path.join(app.get('appDir'), extern), 'utf-8')
