@@ -35,7 +35,7 @@ module.exports = {
     errors = compilerOut.errors
     warnings = compilerOut.warnings
 
-    if (app.get('params').jsCompiler.showWarnings === true && warnings[0]) {
+    if (app.get('params').js.compiler.showWarnings === true && warnings[0]) {
       console.warn('⚠️  JS Compiler Warnings:'.bold.yellow)
       console.warn(warnings)
     }

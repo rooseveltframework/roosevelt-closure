@@ -15,9 +15,12 @@
     "google-closure-compiler-js": "20180101.0.0"
   },
   "devDependencies": {
-    "standard": "^10.0.0",
+    "fs-extra": "~5.0.0",
+    "husky": "^0.14.0",
     "lint-staged": "^6.0.0",
-    "husky": "^0.14.0"
+    "mocha": "~5.0.0",
+    "roosevelt": "~0.11.6",
+    "standard": "^10.0.0"
   },
   "repository": {
     "type": "git",
@@ -36,7 +39,7 @@
   "_from": "roosevelt-closure@*",
   "gitHead": "",
   "scripts": {
-    "test": "standard roosevelt-closure.js",
+    "test": " mocha --timeout 15000 --recursive test/unit && standard roosevelt-uglify.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
