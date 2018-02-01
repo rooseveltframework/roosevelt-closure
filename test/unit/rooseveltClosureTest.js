@@ -288,7 +288,7 @@ describe('Roosevelt Closure Section Test', function () {
 
     // It should not compiled, meaning that if it did, something is off with the error system
     testApp.on('message', (params) => {
-      assert.fail('')
+      assert.fail('the app was able to initialize, meaning that roosevelt-closure was not able to detect the error')
       testApp.kill()
       done()
     })
