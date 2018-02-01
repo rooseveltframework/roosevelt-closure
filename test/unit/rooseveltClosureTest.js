@@ -252,4 +252,45 @@ describe('Roosevelt Closure Section Test', function () {
       done()
     })
   })
+
+  it('should give a "error" string if there is a massive problem with the code that the program is trying to parse (typo)', function (done) {
+    // JS source script that has a error in it (typo)
+    const errorTest = `function f(){ returbn 2 + 3; }`
+    // path of where the file with this script will be located
+    const pathOfErrorStaticJS = path.join(appDir, 'statics', 'js', 'b.js')
+    // make this file before the test
+    fs.writeFileSync(pathOfErrorStaticJS, errorTest)
+
+    // generate the app
+    generateTestApp({
+      appDir: appDir,
+      generateFolderStructure: true,
+      js: {
+        compiler: {
+          nodeModule: '../../roosevelt-closure',
+          showWarnings: false,
+          params: {
+          }
+        }
+      }
+    }, 'initServer')
+
+    // fork the app and run it as a child process
+    const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
+
+    // the app should throw an error with a 'failed to parse file' somewhere in the string
+    testApp.stderr.on('data', (data) => {
+      if (data.includes('failed')) {
+        testApp.kill()
+        done()
+      }
+    })
+
+    // It should not compiled, meaning that if it did, something is off with the error system
+    testApp.on('message', (params) => {
+      assert.fail('')
+      testApp.kill()
+      done()
+    })
+  })
 })

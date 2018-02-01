@@ -39,8 +39,9 @@
   "_from": "roosevelt-closure@*",
   "gitHead": "",
   "scripts": {
-    "test": " mocha --timeout 15000 --recursive test/unit && standard roosevelt-uglify.js",
-    "precommit": "lint-staged"
+    "test": " mocha --timeout 15000 --recursive test/unit && npm run standard",
+    "precommit": "lint-staged",
+    "standard": "standard"
   },
   "lint-staged": {
     "*.js": "standard"
