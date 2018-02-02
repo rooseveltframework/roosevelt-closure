@@ -4,8 +4,8 @@ const assert = require('assert')
 const fs = require('fs')
 const fse = require('fs-extra')
 const path = require('path')
-const cleanupTestApp = require('../util/cleanupTestApp')
-const generateTestApp = require('../util/generateTestApp')
+const cleanupTestApp = require('../../node_modules/roosevelt/test/util/cleanupTestApp')
+const generateTestApp = require('../../node_modules/roosevelt/test/util/generateTestApp')
 const fork = require('child_process').fork
 const closure = require('google-closure-compiler-js')
 
@@ -21,6 +21,9 @@ describe('Roosevelt Closure Section Test', function () {
 
   // path to where the compiled js file will be written to
   const pathOfcompiledJS = path.join(appDir, 'statics', '.build', 'js', 'a.js')
+
+  // options that would be passed to generateTestApp
+  const options = {rooseveltPath: 'roosevelt', method: 'initServer'}
 
   beforeEach(function () {
     // start by generating a statics folder in the roosevelt test app directory
@@ -57,7 +60,7 @@ describe('Roosevelt Closure Section Test', function () {
           }
         }
       }
-    }, 'initServer')
+    }, options)
 
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
@@ -90,7 +93,7 @@ describe('Roosevelt Closure Section Test', function () {
           }
         }
       }
-    }, 'initServer')
+    }, options)
 
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
@@ -118,7 +121,7 @@ describe('Roosevelt Closure Section Test', function () {
           }
         }
       }
-    }, 'initServer')
+    }, options)
 
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
@@ -152,7 +155,7 @@ describe('Roosevelt Closure Section Test', function () {
           }
         }
       }
-    }, 'initServer')
+    }, options)
 
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
@@ -198,7 +201,7 @@ describe('Roosevelt Closure Section Test', function () {
           }
         }
       }
-    }, 'initServer')
+    }, options)
 
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
@@ -238,7 +241,7 @@ describe('Roosevelt Closure Section Test', function () {
           }
         }
       }
-    }, 'initServer')
+    }, options)
 
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
@@ -273,7 +276,7 @@ describe('Roosevelt Closure Section Test', function () {
           }
         }
       }
-    }, 'initServer')
+    }, options)
 
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
