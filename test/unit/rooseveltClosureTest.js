@@ -281,9 +281,9 @@ describe('Roosevelt Closure Section Test', function () {
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
 
-    // the app should throw an error with a 'failed to parse file' somewhere in the string
+    // the app should throw an error with a 'failed to parse' somewhere in the string
     testApp.stderr.on('data', (data) => {
-      if (data.includes('failed')) {
+      if (data.includes('failed to parse')) {
         testApp.kill()
         done()
       }
