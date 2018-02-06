@@ -126,14 +126,6 @@ describe('Roosevelt Closure Section Test', function () {
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
 
-    // an error should be thrown by the testApp, with a warnings in the string
-    testApp.stderr.on('data', (data) => {
-      if (data.toString().includes('Warnings')) {
-        testApp.kill()
-        done()
-      }
-    })
-
     // It should not be able to complete initialization, meaning if it does, we have an error in the error handling
     testApp.on('message', (params) => {
       assert.fail('app was able to complete initialize and did not throw a warnings error')
