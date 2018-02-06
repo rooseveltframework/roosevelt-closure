@@ -206,6 +206,10 @@ describe('Roosevelt Closure Section Test', function () {
     // fork the app and run it as a child process
     const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
 
+    testApp.stderr.on('data', (data) => {
+      console.log(`stderr: ${data}`)
+    })
+
     // It should have compiled, but the function declared in the externs params should not have changed
     testApp.on('message', (params) => {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
