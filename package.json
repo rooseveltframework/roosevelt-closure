@@ -39,7 +39,7 @@
   "_from": "roosevelt-closure@*",
   "gitHead": "",
   "scripts": {
-    "test": " mocha --timeout 15000 --recursive test/unit && npm run standard",
+    "test": " mocha --timeout 25000 --recursive test/unit && npm run standard",
     "precommit": "lint-staged",
     "standard": "standard"
   },
