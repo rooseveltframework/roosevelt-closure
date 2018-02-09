@@ -108,74 +108,6 @@ describe('Roosevelt Closure Section Test', function () {
     })
   })
 
-  it('should not give a "warning" string since the showWarning param is false', function (done) {
-    // generate the app
-    generateTestApp({
-      appDir: appDir,
-      generateFolderStructure: true,
-      js: {
-        compiler: {
-          nodeModule: '../../roosevelt-closure',
-          showWarnings: false,
-          params: {
-          }
-        }
-      }
-    }, options)
-
-    // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
-
-    // an error should not be thrown by the testApp
-    testApp.stderr.on('data', (data) => {
-      if (data.toString().includes('Warnings')) {
-        assert.fail('app had thrown an error when showWarnings was set to false')
-        testApp.kill()
-        done()
-      }
-    })
-
-    // It should be able to complete initialization, meaning that the test had succeeded if it has completed initialization
-    testApp.on('message', (params) => {
-      testApp.kill()
-      done()
-    })
-  })
-
-  it('should console log a "warnings" string if there is something wrong with the code that the program is trying to parse', function (done) {
-    // generate the app
-    generateTestApp({
-      appDir: appDir,
-      generateFolderStructure: true,
-      js: {
-        compiler: {
-          nodeModule: '../../roosevelt-closure',
-          showWarnings: true,
-          params: {
-          }
-        }
-      }
-    }, options)
-
-    // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
-
-    // an error should be thrown by the testApp, with a warnings in the string
-    testApp.stderr.on('data', (data) => {
-      if (data.toString().includes('Warnings')) {
-        testApp.kill()
-        done()
-      }
-    })
-
-    // It should not be able to complete initialization, meaning if it does, we have an error in the error handling
-    testApp.on('message', (params) => {
-      assert.fail('app was able to complete initialize and did not throw a warnings error')
-      testApp.kill()
-      done()
-    })
-  })
-
   it('should not change the name of a function that is from a external file I declare in the externs (String)', function (done) {
     // sample external JS source string
     const externalJS = 'function testing(nameIn,num){console.log(`Hello ` + nameIn + `You had come into class ` + num + `days`)}'
@@ -292,6 +224,74 @@ describe('Roosevelt Closure Section Test', function () {
     // It should not compiled, meaning that if it did, something is off with the error system
     testApp.on('message', (params) => {
       assert.fail('the app was able to initialize, meaning that roosevelt-closure was not able to detect the error')
+      testApp.kill()
+      done()
+    })
+  })
+
+  it('should not give a "warning" string since the showWarning param is false', function (done) {
+    // generate the app
+    generateTestApp({
+      appDir: appDir,
+      generateFolderStructure: true,
+      js: {
+        compiler: {
+          nodeModule: '../../roosevelt-closure',
+          showWarnings: false,
+          params: {
+          }
+        }
+      }
+    }, options)
+
+    // fork the app and run it as a child process
+    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+
+    // an error should not be thrown by the testApp
+    testApp.stderr.on('data', (data) => {
+      if (data.toString().includes('Warnings')) {
+        assert.fail('app had thrown an error when showWarnings was set to false')
+        testApp.kill()
+        done()
+      }
+    })
+
+    // It should be able to complete initialization, meaning that the test had succeeded if it has completed initialization
+    testApp.on('message', (params) => {
+      testApp.kill()
+      done()
+    })
+  })
+
+  it('should console log a "warnings" string if there is something wrong with the code that the program is trying to parse', function (done) {
+    // generate the app
+    generateTestApp({
+      appDir: appDir,
+      generateFolderStructure: true,
+      js: {
+        compiler: {
+          nodeModule: '../../roosevelt-closure',
+          showWarnings: true,
+          params: {
+          }
+        }
+      }
+    }, options)
+
+    // fork the app and run it as a child process
+    const testApp = fork(path.join(appDir, 'app.js'), {'stdio': ['pipe', 'pipe', 'pipe', 'ipc']})
+
+    // an error should be thrown by the testApp, with a warnings in the string
+    testApp.stderr.on('data', (data) => {
+      if (data.toString().includes('Warnings')) {
+        testApp.kill()
+        done()
+      }
+    })
+
+    // It should not be able to complete initialization, meaning if it does, we have an error in the error handling
+    testApp.on('message', (params) => {
+      assert.fail('app was able to complete initialize and did not throw a warnings error')
       testApp.kill()
       done()
     })
