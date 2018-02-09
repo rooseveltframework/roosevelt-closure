@@ -30,3 +30,6 @@ Thumbs.db
 npm-debug.log
 
 .jscodehints
+
+coverage
+.nyc_output
