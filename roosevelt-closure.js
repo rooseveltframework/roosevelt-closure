@@ -11,6 +11,9 @@ module.exports = {
     let errors
     let warnings
 
+    // make a copy of the params so the originals aren't modified
+    params = JSON.parse(JSON.stringify(params))
+
     if (params.externs) {
       // process externs
       if (typeof params.externs === 'string') {

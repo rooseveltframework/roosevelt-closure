@@ -78,6 +78,39 @@ describe('Roosevelt Closure Section Test', function () {
     })
   })
 
+  it('should compile a js file when params are undefined', function (done) {
+    // JS string that represents the js file that was compiled with no params set
+    const flags = { jsCode: [{ src: test1 }] }
+    const noParamResult = closure.compile(flags)
+
+    // generate the app
+    generateTestApp({
+      appDir: appDir,
+      generateFolderStructure: true,
+      js: {
+        compiler: {
+          nodeModule: '../../roosevelt-closure',
+          showWarnings: false
+        }
+      }
+    }, options)
+
+    // fork the app and run it as a child process
+    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+
+    // grab the string data from the compiled js file and compare that to the string of what a normal uglified looks like
+    testApp.on('message', () => {
+      let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
+      let test = contentsOfCompiledJS === noParamResult.compiledCode
+      assert.equal(test, true)
+      testApp.kill('SIGINT')
+    })
+
+    testApp.on('exit', () => {
+      done()
+    })
+  })
+
   it('should make the same compiled js file if a param is passed to Roosevelt-UglifyJS as to if the file and params were passed to UglifyJS', function (done) {
     // JS string that represents the js file that was compiled with the compress set to false
     const flags = { jsCode: [ { src: test1 } ], compilationLevel: 'WHITESPACE_ONLY' }
