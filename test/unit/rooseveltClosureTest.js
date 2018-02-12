@@ -70,7 +70,43 @@ describe('Roosevelt Closure Section Test', function () {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
       let test = contentsOfCompiledJS === noParamResult.compiledCode
       assert.equal(test, true)
-      testApp.kill()
+      testApp.kill('SIGINT')
+    })
+
+    testApp.on('exit', () => {
+      done()
+    })
+  })
+
+  it('should compile a js file when params are undefined', function (done) {
+    // JS string that represents the js file that was compiled with no params set
+    const flags = { jsCode: [{ src: test1 }] }
+    const noParamResult = closure.compile(flags)
+
+    // generate the app
+    generateTestApp({
+      appDir: appDir,
+      generateFolderStructure: true,
+      js: {
+        compiler: {
+          nodeModule: '../../roosevelt-closure',
+          showWarnings: false
+        }
+      }
+    }, options)
+
+    // fork the app and run it as a child process
+    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+
+    // grab the string data from the compiled js file and compare that to the string of what a normal uglified looks like
+    testApp.on('message', () => {
+      let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
+      let test = contentsOfCompiledJS === noParamResult.compiledCode
+      assert.equal(test, true)
+      testApp.kill('SIGINT')
+    })
+
+    testApp.on('exit', () => {
       done()
     })
   })
@@ -103,12 +139,17 @@ describe('Roosevelt Closure Section Test', function () {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
       let test = contentsOfCompiledJS === compressResult.compiledCode
       assert.equal(test, true)
-      testApp.kill()
+      testApp.kill('SIGINT')
+    })
+
+    testApp.on('exit', () => {
       done()
     })
   })
 
   it('should not give a "warning" string since the showWarning param is false', function (done) {
+    let warning
+
     // generate the app
     generateTestApp({
       appDir: appDir,
@@ -129,20 +170,25 @@ describe('Roosevelt Closure Section Test', function () {
     // an error should not be thrown by the testApp
     testApp.stderr.on('data', (data) => {
       if (data.toString().includes('Warnings')) {
-        assert.fail('app had thrown an error when showWarnings was set to false')
-        testApp.kill()
-        done()
+        warning = true
       }
     })
 
-    // It should be able to complete initialization, meaning that the test had succeeded if it has completed initialization
-    testApp.on('message', (params) => {
-      testApp.kill()
+    testApp.on('message', (app) => {
+      if (warning) {
+        assert.fail('app had thrown an error when showWarnings was set to false')
+      }
+      testApp.kill('SIGINT')
+    })
+
+    testApp.on('exit', () => {
       done()
     })
   })
 
   it('should console log a "warnings" string if there is something wrong with the code that the program is trying to parse', function (done) {
+    let warning
+
     // generate the app
     generateTestApp({
       appDir: appDir,
@@ -163,15 +209,18 @@ describe('Roosevelt Closure Section Test', function () {
     // an error should be thrown by the testApp, with a warnings in the string
     testApp.stderr.on('data', (data) => {
       if (data.toString().includes('Warnings')) {
-        testApp.kill()
-        done()
+        warning = true
       }
     })
 
-    // It should not be able to complete initialization, meaning if it does, we have an error in the error handling
-    testApp.on('message', (params) => {
-      assert.fail('app was able to complete initialize and did not throw a warnings error')
-      testApp.kill()
+    testApp.on('message', (app) => {
+      if (!warning) {
+        assert.fail('app was able to complete initialize and did not throw a warnings error')
+      }
+      testApp.kill('SIGINT')
+    })
+
+    testApp.on('exit', () => {
       done()
     })
   })
@@ -211,7 +260,10 @@ describe('Roosevelt Closure Section Test', function () {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
       let test = contentsOfCompiledJS.includes('testing')
       assert.equal(test, true)
-      testApp.kill()
+      testApp.kill('SIGINT')
+    })
+
+    testApp.on('exit', () => {
       done()
     })
   })
@@ -251,7 +303,10 @@ describe('Roosevelt Closure Section Test', function () {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
       let test = contentsOfCompiledJS.includes('testing')
       assert.equal(test, true)
-      testApp.kill()
+      testApp.kill('SIGINT')
+    })
+
+    testApp.on('exit', () => {
       done()
     })
   })
@@ -261,6 +316,8 @@ describe('Roosevelt Closure Section Test', function () {
     const errorTest = `function f(){ returbn 2 + 3; }`
     // path of where the file with this script will be located
     const pathOfErrorStaticJS = path.join(appDir, 'statics', 'js', 'b.js')
+    let error
+
     // make this file before the test
     fs.writeFileSync(pathOfErrorStaticJS, errorTest)
 
@@ -284,15 +341,19 @@ describe('Roosevelt Closure Section Test', function () {
     // the app should throw an error with a 'failed to parse' somewhere in the string
     testApp.stderr.on('data', (data) => {
       if (data.includes('failed to parse')) {
-        testApp.kill()
-        done()
+        error = true
       }
     })
 
     // It should not compiled, meaning that if it did, something is off with the error system
     testApp.on('message', (params) => {
-      assert.fail('the app was able to initialize, meaning that roosevelt-closure was not able to detect the error')
-      testApp.kill()
+      if (!error) {
+        assert.fail('the app initialized with no error detected')
+      }
+      testApp.kill('SIGINT')
+    })
+
+    testApp.on('exit', () => {
       done()
     })
   })
