@@ -11,6 +11,9 @@ module.exports = {
     let errors
     let warnings
 
+    // make a copy of the params so the originals aren't modified
+    params = JSON.parse(JSON.stringify(params))
+
     if (params.externs) {
       // process externs
       if (typeof params.externs === 'string') {
@@ -35,7 +38,7 @@ module.exports = {
     errors = compilerOut.errors
     warnings = compilerOut.warnings
 
-    if (app.get('params').jsCompiler.showWarnings === true && warnings[0]) {
+    if (app.get('params').js.compiler.showWarnings === true && warnings[0]) {
       console.warn('⚠️  JS Compiler Warnings:'.bold.yellow)
       console.warn(warnings)
     }
