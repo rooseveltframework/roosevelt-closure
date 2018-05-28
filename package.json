@@ -20,7 +20,7 @@
     "google-closure-compiler-js": "20180319.0.0"
   },
   "devDependencies": {
-    "coveralls": "~3.0.0",
+    "codecov": "~3.0.2",
     "eslint": "~4.19.1",
     "eslint-plugin-mocha": "~5.0.0",
     "fs-extra": "~5.0.0",
