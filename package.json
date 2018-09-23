@@ -17,17 +17,19 @@
   },
   "engineStrict": true,
   "dependencies": {
-    "google-closure-compiler-js": "20180319.0.0",
-    "fs-extra": "~5.0.0"
+    "google-closure-compiler-js": "20180610.0.0"
   },
   "devDependencies": {
-    "coveralls": "~3.0.0",
-    "husky": "~0.14.0",
-    "lint-staged": "~7.0.0",
-    "mocha": "~5.1.0",
-    "nyc": "~11.7.1",
-    "roosevelt": "~0.11.8",
-    "standard": "~11.0.0"
+    "codecov": "3.0.2",
+    "eslint": "5.5.0",
+    "eslint-plugin-mocha": "5.2.0",
+    "fs-extra": "5.0.0",
+    "husky": "0.14.3",
+    "lint-staged": "7.2.2",
+    "mocha": "5.2.0",
+    "nyc": "13.0.1",
+    "roosevelt": "0.11.9",
+    "standard": "12.0.1"
   },
   "repository": {
     "type": "git",
@@ -45,12 +47,30 @@
   "preferGlobal": true,
   "_from": "roosevelt-closure@*",
   "gitHead": "",
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "plugins": [
+      "mocha"
+    ],
+    "rules": {
+      "mocha/no-exclusive-tests": "error"
+    }
+  },
+  "nyc": {
+    "reporter": [
+      "html",
+      "text",
+      "lcov"
+    ]
+  },
   "scripts": {
-    "coverage": "nyc --reporter=html --reporter=text mocha --timeout 25000 --recursive test/unit",
-    "coveralls": "nyc --reporter=lcov mocha --timeout 40000 --recursive test && cat ./coverage/lcov.info | coveralls",
-    "test": " mocha --timeout 25000 --recursive test/unit && npm run standard",
+    "codecov": "./node_modules/.bin/codecov",
+    "coverage": "nyc mocha --timeout 25000 test/unit",
+    "lint": "standard && eslint ./test/unit",
     "precommit": "lint-staged",
-    "standard": "standard"
+    "test": "npm run lint && mocha --timeout 25000 test/unit"
   },
   "lint-staged": {
     "*.js": "standard"

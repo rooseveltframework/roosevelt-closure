@@ -17,7 +17,7 @@ module.exports = {
     if (params.externs) {
       // process externs
       if (typeof params.externs === 'string') {
-        params.externs = [{src: fs.readFileSync(path.join(app.get('appDir'), params.externs), 'utf-8')}]
+        params.externs = [{ src: fs.readFileSync(path.join(app.get('appDir'), params.externs), 'utf-8') }]
       } else {
         externs = []
         params.externs.forEach((extern) => {
@@ -31,7 +31,7 @@ module.exports = {
       }
     }
 
-    params.jsCode = [{src: fs.readFileSync(path.join(app.get('jsPath'), fileName), 'utf-8')}]
+    params.jsCode = [{ src: fs.readFileSync(path.join(app.get('jsPath'), fileName), 'utf-8') }]
 
     compilerOut = closureCompiler(params)
     newJs = compilerOut.compiledCode
