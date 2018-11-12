@@ -70,7 +70,7 @@ describe('Roosevelt Closure Section Test', function () {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
       let test = contentsOfCompiledJS === noParamResult.compiledCode
       assert.strictEqual(test, true)
-      testApp.kill('SIGINT')
+      testApp.send('stop')
     })
 
     testApp.on('exit', () => {
@@ -103,7 +103,7 @@ describe('Roosevelt Closure Section Test', function () {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
       let test = contentsOfCompiledJS === noParamResult.compiledCode
       assert.strictEqual(test, true)
-      testApp.kill('SIGINT')
+      testApp.send('stop')
     })
 
     testApp.on('exit', () => {
@@ -139,7 +139,7 @@ describe('Roosevelt Closure Section Test', function () {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
       let test = contentsOfCompiledJS === compressResult.compiledCode
       assert.strictEqual(test, true)
-      testApp.kill('SIGINT')
+      testApp.send('stop')
     })
 
     testApp.on('exit', () => {
@@ -178,7 +178,7 @@ describe('Roosevelt Closure Section Test', function () {
       if (warning) {
         assert.fail('app had thrown an error when showWarnings was set to false')
       }
-      testApp.kill('SIGINT')
+      testApp.send('stop')
     })
 
     testApp.on('exit', () => {
@@ -217,7 +217,7 @@ describe('Roosevelt Closure Section Test', function () {
       if (!warning) {
         assert.fail('app was able to complete initialize and did not throw a warnings error')
       }
-      testApp.kill('SIGINT')
+      testApp.send('stop')
     })
 
     testApp.on('exit', () => {
@@ -260,7 +260,7 @@ describe('Roosevelt Closure Section Test', function () {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
       let test = contentsOfCompiledJS.includes('testing')
       assert.strictEqual(test, true)
-      testApp.kill('SIGINT')
+      testApp.send('stop')
     })
 
     testApp.on('exit', () => {
@@ -303,7 +303,7 @@ describe('Roosevelt Closure Section Test', function () {
       let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
       let test = contentsOfCompiledJS.includes('testing')
       assert.strictEqual(test, true)
-      testApp.kill('SIGINT')
+      testApp.send('stop')
     })
 
     testApp.on('exit', () => {
@@ -350,7 +350,7 @@ describe('Roosevelt Closure Section Test', function () {
       if (!error) {
         assert.fail('the app initialized with no error detected')
       }
-      testApp.kill('SIGINT')
+      testApp.send('stop')
     })
 
     testApp.on('exit', () => {
