@@ -28,7 +28,7 @@
     "lint-staged": "7.2.2",
     "mocha": "5.2.0",
     "nyc": "13.0.1",
-    "roosevelt": "0.12.0",
+    "roosevelt": "0.12.1",
     "standard": "12.0.1"
   },
   "repository": {
