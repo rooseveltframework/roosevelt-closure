@@ -29,6 +29,7 @@
     "lint-staged": "8.1.5",
     "mocha": "6.1.2",
     "roosevelt": "0.13.0",
+    "roosevelt-logger": "0.2.0",
     "standard": "12.0.1"
   },
   "repository": {
@@ -62,14 +63,14 @@
     "codecov": "./node_modules/.bin/codecov",
     "coverage": "c8 --reporter=text --reporter=lcov mocha --timeout 100000 test/unit",
     "lint": "standard && eslint ./test/unit",
-    "test": "npm run lint && mocha --timeout 25000 test/unit"
+    "test": "mocha --timeout 25000 test/unit"
   },
   "lint-staged": {
     "*.js": "standard"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && eslint ./test/unit"
     }
   }
 }
