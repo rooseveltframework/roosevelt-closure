@@ -62,14 +62,14 @@
     "codecov": "./node_modules/.bin/codecov",
     "coverage": "c8 --reporter=text --reporter=lcov mocha --timeout 100000 test/unit",
     "lint": "standard && eslint ./test/unit",
-    "test": "npm run lint && mocha --timeout 25000 test/unit"
+    "test": "mocha --timeout 25000 test/unit"
   },
   "lint-staged": {
     "*.js": "standard"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && eslint ./test/unit"
     }
   }
 }

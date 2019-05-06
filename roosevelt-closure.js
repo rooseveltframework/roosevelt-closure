@@ -10,6 +10,7 @@ module.exports = {
     let newJs
     let errors
     let warnings
+    const logger = app.get('logger')
 
     // make a copy of the params so the originals aren't modified
     params = JSON.parse(JSON.stringify(params))
@@ -39,8 +40,8 @@ module.exports = {
     warnings = compilerOut.warnings
 
     if (app.get('params').js.compiler.showWarnings === true && warnings[0]) {
-      console.warn('⚠️  JS Compiler Warnings:'.bold.yellow)
-      console.warn(warnings)
+      logger.warn('⚠️  JS Compiler Warnings:')
+      logger.warn(warnings)
     }
 
     if (errors[0]) {
