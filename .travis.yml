@@ -4,8 +4,8 @@ os:
   - linux
   - osx
 node_js:
-  - "11"
   - "10"
+  - "12"
 script:
   - npm run lint
   - npm run coverage
