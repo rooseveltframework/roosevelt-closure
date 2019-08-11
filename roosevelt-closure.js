@@ -6,10 +6,6 @@ module.exports = {
   parse: function (app, fileName) {
     let params = app.get('params').js.compiler.params || {}
     let externs
-    let compilerOut
-    let newJs
-    let errors
-    let warnings
     const logger = app.get('logger')
 
     // make a copy of the params so the originals aren't modified
@@ -34,10 +30,10 @@ module.exports = {
 
     params.jsCode = [{ src: fs.readFileSync(path.join(app.get('jsPath'), fileName), 'utf-8') }]
 
-    compilerOut = closureCompiler(params)
-    newJs = compilerOut.compiledCode
-    errors = compilerOut.errors
-    warnings = compilerOut.warnings
+    const compilerOut = closureCompiler(params)
+    const newJs = compilerOut.compiledCode
+    const errors = compilerOut.errors
+    const warnings = compilerOut.warnings
 
     if (app.get('params').js.compiler.showWarnings === true && warnings[0]) {
       logger.warn('⚠️  JS Compiler Warnings:')

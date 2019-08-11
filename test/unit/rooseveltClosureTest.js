@@ -45,7 +45,7 @@ describe('Roosevelt Closure Section Test', function () {
 
   it('should make a compiled js file that is the same as the compiled js string I have stored in the noParamResult variable', function (done) {
     // JS string that represents the js file that was compiled with no params set
-    const flags = { jsCode: [ { src: test1 } ] }
+    const flags = { jsCode: [{ src: test1 }] }
     const noParamResult = closure.compile(flags)
 
     // generate the app
@@ -63,12 +63,12 @@ describe('Roosevelt Closure Section Test', function () {
     }, options)
 
     // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+    const testApp = fork(path.join(appDir, 'app.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
 
     // grab the string data from the compiled js file and compare that to the string of what a normal uglified looks like
     testApp.on('message', () => {
-      let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
-      let test = contentsOfCompiledJS === noParamResult.compiledCode
+      const contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
+      const test = contentsOfCompiledJS === noParamResult.compiledCode
       assert.strictEqual(test, true)
       testApp.send('stop')
     })
@@ -96,12 +96,12 @@ describe('Roosevelt Closure Section Test', function () {
     }, options)
 
     // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+    const testApp = fork(path.join(appDir, 'app.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
 
     // grab the string data from the compiled js file and compare that to the string of what a normal uglified looks like
     testApp.on('message', () => {
-      let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
-      let test = contentsOfCompiledJS === noParamResult.compiledCode
+      const contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
+      const test = contentsOfCompiledJS === noParamResult.compiledCode
       assert.strictEqual(test, true)
       testApp.send('stop')
     })
@@ -113,7 +113,7 @@ describe('Roosevelt Closure Section Test', function () {
 
   it('should make the same compiled js file if a param is passed to Roosevelt-UglifyJS as to if the file and params were passed to UglifyJS', function (done) {
     // JS string that represents the js file that was compiled with the compress set to false
-    const flags = { jsCode: [ { src: test1 } ], compilationLevel: 'WHITESPACE_ONLY' }
+    const flags = { jsCode: [{ src: test1 }], compilationLevel: 'WHITESPACE_ONLY' }
     const compressResult = closure.compile(flags)
 
     // generate the app
@@ -132,12 +132,12 @@ describe('Roosevelt Closure Section Test', function () {
     }, options)
 
     // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+    const testApp = fork(path.join(appDir, 'app.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
 
     // grab the string data from the compiled js file and compare that to the string of what a normal uglified looks like
     testApp.on('message', (app) => {
-      let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
-      let test = contentsOfCompiledJS === compressResult.compiledCode
+      const contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
+      const test = contentsOfCompiledJS === compressResult.compiledCode
       assert.strictEqual(test, true)
       testApp.send('stop')
     })
@@ -165,7 +165,7 @@ describe('Roosevelt Closure Section Test', function () {
     }, options)
 
     // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+    const testApp = fork(path.join(appDir, 'app.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
 
     // an error should not be thrown by the testApp
     testApp.stderr.on('data', (data) => {
@@ -204,7 +204,7 @@ describe('Roosevelt Closure Section Test', function () {
     }, options)
 
     // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+    const testApp = fork(path.join(appDir, 'app.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
 
     // an error should be thrown by the testApp, with a warnings in the string
     testApp.stderr.on('data', (data) => {
@@ -253,12 +253,12 @@ describe('Roosevelt Closure Section Test', function () {
     }, options)
 
     // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+    const testApp = fork(path.join(appDir, 'app.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
 
     // It should have compiled, but the function declared in the externs params should not have changed
     testApp.on('message', (params) => {
-      let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
-      let test = contentsOfCompiledJS.includes('testing')
+      const contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
+      const test = contentsOfCompiledJS.includes('testing')
       assert.strictEqual(test, true)
       testApp.send('stop')
     })
@@ -296,12 +296,12 @@ describe('Roosevelt Closure Section Test', function () {
     }, options)
 
     // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+    const testApp = fork(path.join(appDir, 'app.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
 
     // It should have compiled, but the function declared in the externs params should not have changed
     testApp.on('message', (params) => {
-      let contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
-      let test = contentsOfCompiledJS.includes('testing')
+      const contentsOfCompiledJS = fs.readFileSync(pathOfcompiledJS, 'utf8')
+      const test = contentsOfCompiledJS.includes('testing')
       assert.strictEqual(test, true)
       testApp.send('stop')
     })
@@ -336,7 +336,7 @@ describe('Roosevelt Closure Section Test', function () {
     }, options)
 
     // fork the app and run it as a child process
-    const testApp = fork(path.join(appDir, 'app.js'), { 'stdio': ['pipe', 'pipe', 'pipe', 'ipc'] })
+    const testApp = fork(path.join(appDir, 'app.js'), { stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
 
     // the app should throw an error with a 'failed to parse' somewhere in the string
     testApp.stderr.on('data', (data) => {
