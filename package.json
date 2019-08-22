@@ -24,7 +24,7 @@
     "c8": "~5.0.1",
     "codecov": "~3.5.0",
     "eslint": "~6.1.0",
-    "eslint-plugin-mocha": "~6.0.0",
+    "eslint-plugin-mocha": "~6.1.0",
     "fs-extra": "~8.1.0",
     "husky": "~3.0.3",
     "lint-staged": "~9.2.1",
