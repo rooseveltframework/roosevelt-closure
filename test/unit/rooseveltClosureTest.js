@@ -14,7 +14,7 @@ describe('Roosevelt Closure Section Test', function () {
   const appDir = path.join(__dirname, '../app/closureJSTest')
 
   // sample JS source string to test the compiler with that has a unusedvar
-  const test1 = `var h = 3 + 6; var test = 9 === NaN; testing('Paul', h);`
+  const test1 = 'var h = 3 + 6; var test = 9 === NaN; testing(\'Paul\', h);'
 
   // path to where the file with the JS source string written on it will be
   const pathOfStaticJS = path.join(appDir, 'statics', 'js', 'a.js')
@@ -313,7 +313,7 @@ describe('Roosevelt Closure Section Test', function () {
 
   it('should give a "error" string if there is a massive problem with the code that the program is trying to parse (typo)', function (done) {
     // JS source script that has a error in it (typo)
-    const errorTest = `function f(){ returbn 2 + 3; }`
+    const errorTest = 'function f(){ returbn 2 + 3; }'
     // path of where the file with this script will be located
     const pathOfErrorStaticJS = path.join(appDir, 'statics', 'js', 'b.js')
     let error
