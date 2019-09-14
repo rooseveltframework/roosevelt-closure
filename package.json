@@ -30,7 +30,7 @@
     "lint-staged": "~9.2.3",
     "mocha": "~6.2.0",
     "roosevelt": "~0.14.6",
-    "standard": "~14.0.2"
+    "standard": "~14.3.0"
   },
   "repository": {
     "type": "git",
