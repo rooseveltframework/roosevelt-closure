@@ -4,8 +4,8 @@ const assert = require('assert')
 const fs = require('fs')
 const fse = require('fs-extra')
 const path = require('path')
-const cleanupTestApp = require('../../node_modules/roosevelt/test/util/cleanupTestApp')
-const generateTestApp = require('../../node_modules/roosevelt/test/util/generateTestApp')
+const cleanupTestApp = require('../util/cleanupTestApp')
+const generateTestApp = require('../util/generateTestApp')
 const fork = require('child_process').fork
 const closure = require('google-closure-compiler-js')
 

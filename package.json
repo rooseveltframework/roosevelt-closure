@@ -24,15 +24,15 @@
     "google-closure-compiler-js": "20180610.0.0"
   },
   "devDependencies": {
-    "c8": "~5.0.4",
+    "c8": "~7.0.0",
     "codecov": "~3.6.1",
-    "eslint": "~6.5.1",
-    "eslint-plugin-mocha": "~6.1.1",
+    "eslint": "~6.8.0",
+    "eslint-plugin-mocha": "~6.2.2",
     "fs-extra": "~8.1.0",
-    "husky": "~3.0.8",
-    "lint-staged": "~9.4.1",
-    "mocha": "~6.2.1",
-    "roosevelt": "~0.14.6",
+    "husky": "~3.1.0",
+    "lint-staged": "~9.5.0",
+    "mocha": "~6.2.2",
+    "roosevelt": "~0.15.1",
     "standard": "~14.3.1"
   },
   "repository": {
@@ -64,7 +64,7 @@
   },
   "scripts": {
     "codecov": "./node_modules/.bin/codecov",
-    "coverage": "c8 --reporter=text --reporter=lcov mocha --timeout 100000 test/unit",
+    "coverage": "c8 --reporter=text --reporter=lcov mocha --timeout 25000 test/unit",
     "lint": "standard && eslint ./test/unit",
     "test": "mocha --timeout 25000 test/unit"
   },
@@ -75,5 +75,9 @@
     "hooks": {
       "pre-commit": "lint-staged && eslint ./test/unit"
     }
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/kethinov"
   }
 }
